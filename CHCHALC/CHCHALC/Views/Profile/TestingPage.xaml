@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CHCHALC.Views.TestingPage"
+             Title="Run as a testing mobile">
+    <ContentPage.BindingContext>
+        <vm:TestingViewModel />
+    </ContentPage.BindingContext>
+    
+    <StackLayout Padding="10">
+        <Label TextColor="Maroon" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"
+               Text="This page is for testing only"/>
+        <TableView Intent="Data" HasUnevenRows="true" VerticalOptions="Center">
+            <TableRoot>
+                <TableSection  Title="Choose one from existing">
+                    <ViewCell>
+                        <ListView ItemsSource="{Binding Candidates}"
+                                VerticalOptions="FillAndExpand"
+                                HasUnevenRows="true"
+                                RefreshCommand="{Binding LoadCommand}"
+                                IsPullToRefreshEnabled="true"
+                                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                                CachingStrategy="RecycleElement"
+                                ItemTapped="ListView_ItemTapped">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Padding="10">
+                                            <Label Text="{Binding GivenName}" d:Text="{Binding .}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" TextColor="Maroon"/>
+                                            <Label Text="{Binding PreferName}" d:Text="Item descripton" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" TextColor="Maroon"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="Create a new tester on this phone">
+                    <EntryCell IsEnabled="{Binding IsEditing}" Keyboard="Text" Label="Name" Placeholder="eg.(Ziteng Huang)" Text="{Binding Name, Mode=TwoWay}"/>
+                    <EntryCell IsEnabled="{Binding IsEditing}" Keyboard="Text" Label="NickName" Placeholder="eg.(Peter)" Text="{Binding NickName, Mode=TwoWay}"/>
+                    <EntryCell IsEnabled="{Binding IsEditing}" Keyboard="Text" Label="Description" Placeholder="eg.(I am awesome)" Text="{Binding Description, Mode=TwoWay}"/>
+                    <ViewCell >
+                        <Button HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"
+                            BackgroundColor="Silver" FontSize="Large" BorderWidth="1" Margin="15" TextColor="Maroon"
+                            Text="Create New" Clicked="CreateNewClicked"/>
+                    </ViewCell>
+                    <ViewCell >
+                        <Button HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"
+                            BackgroundColor="Silver" FontSize="Large" BorderWidth="1" Margin="15" TextColor="Red"
+                            Text="Logout from this mobile" Clicked="LogoutClicked"/>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </StackLayout>
+</ContentPage>

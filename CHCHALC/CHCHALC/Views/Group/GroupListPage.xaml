@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cardView="clr-namespace:CardView;assembly=CardView"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CHCHALC.Views.GroupListPage"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:GroupListViewModel />
+    </ContentPage.BindingContext>
+
+    <AbsoluteLayout>
+
+        <ListView ItemsSource="{Binding Groups}" 
+              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"
+              HasUnevenRows="true" SeparatorVisibility="None"
+              RefreshCommand="{Binding LoadCommand}"
+              IsPullToRefreshEnabled="true"
+              IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+              CachingStrategy="RecycleElement"
+              ItemTapped="ExistingParticipateTappedAsync">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="1,1,1,1" Orientation="Vertical" BackgroundColor="Gray">
+                            <cardView:CardView BackgroundColor="LightYellow" CardViewHasShadow="True">
+                                <cardView:CardView.CardViewContent>
+                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="10" Spacing="10">
+                                        <Image HeightRequest="96" Source="{Binding Image}" />
+                                        <BoxView HeightRequest="1" WidthRequest="275" Color="LightGray" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding Name}" Grid.Row="0" Grid.Column="0" Margin="15,0,0,0" FontSize="Medium"/>
+                                            <Label Text="{Binding Visibility}" Grid.Row="0" Grid.Column="1" Margin="0,0,15,0" FontSize="Medium" HorizontalTextAlignment="End"/>
+                                        </Grid>
+                                        <Label Text="You are admin" IsVisible="{Binding IsAdmin}" Margin="15,0,0,0" FontSize="Medium"/>
+                                    </StackLayout>
+                                </cardView:CardView.CardViewContent>
+                            </cardView:CardView>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Label TextColor="Maroon" FontSize="Large"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".05, .50, 260, 40" 
+            Text="You didn't join any group" 
+            IsVisible="{Binding NoGroupParticipated}"/>
+
+        <Button Image="ic_add_white.png" 
+            BackgroundColor="Blue" BorderRadius="30" Opacity="0.7"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".95, .95, 60, 60" 
+            Clicked="JoinOpenGroupsAsync" />
+
+    </AbsoluteLayout>
+</ContentPage>

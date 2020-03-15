@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CHCHALC.Views.PublicGroupsPage"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:PublicGroupListViewModel />
+    </ContentPage.BindingContext>
+
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <ListView ItemsSource="{Binding Groups}"
+                HasUnevenRows="true" SeparatorVisibility="None"
+                RefreshCommand="{Binding LoadCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemTapped="GroupTappedAsync"
+                x:Name="listView">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <ViewCell>
+                    <Grid Margin="20,10,10,10">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+                      <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label Text="{Binding Name}"  />
+                        <Label Text="{Binding Address}" FontSize="10" />
+                      </StackLayout>
+                    </Grid>
+                  </ViewCell>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+        <Label TextColor="Maroon" FontSize="Large"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".05, .50, 260, 40" 
+            Text="No public groups to join" 
+            IsVisible="{Binding NoGroupToJoin}"/>
+
+
+        <Button Image="ic_add_white.png" 
+            BackgroundColor="Maroon" BorderRadius="30" Opacity="0.7"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".95, .85, 60, 60"
+            IsVisible="{Binding CreateGroupButtonVisible}"
+            Clicked="CreateGroupAsync" />
+
+    </AbsoluteLayout>
+</ContentPage>

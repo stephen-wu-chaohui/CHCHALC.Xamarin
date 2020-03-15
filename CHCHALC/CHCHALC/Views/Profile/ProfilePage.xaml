@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CHCHALC.Views.ProfilePage"
+             Title="Participate">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="More" Clicked="MoreAccountsClicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <vm:ProfileViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout>
+        
+        <Image Source="sunday.png" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="150"/>
+            
+        <TableView Intent="Data" HasUnevenRows="true" VerticalOptions="Fill" HeightRequest="300">
+            <TableRoot>
+                <TableSection Title="My Profile">
+                    <EntryCell Keyboard="Text" Label="Formal Name" Placeholder="eg.(Ziteng Huang)" Text="{Binding FormalName, Mode=TwoWay}"/>
+                    <EntryCell Keyboard="Text" Label="Prefer Name" Placeholder="eg.(Peter)" Text="{Binding PreferName, Mode=TwoWay}"/>
+                    <EntryCell Keyboard="Text" Label="Description" Placeholder="eg.(I am awesome)" Text="{Binding Description, Mode=TwoWay}"/>
+                </TableSection>
+                <TableSection Title="Personal Statement">
+                    <ViewCell Height="180">
+                        <StackLayout Padding="20">
+                            <Editor IsEnabled="{Binding IsEditing}" Text="{Binding PersonalStatement, Mode=TwoWay}" HeightRequest="60"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+
+        <Button HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"
+            BackgroundColor="Silver" FontSize="Large" BorderWidth="1" Margin="5"
+            Text="Confirm" Clicked="ConfirmClicked"/>
+
+    </StackLayout>
+</ContentPage>

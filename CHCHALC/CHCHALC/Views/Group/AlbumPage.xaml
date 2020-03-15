@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cardView="clr-namespace:CardView;assembly=CardView"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CHCHALC.Views.AlbumPage"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Clicked="EditButtonClickedAsync" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+        <StackLayout BackgroundColor="{StaticResource Accent}">
+            <Image Margin="10" Source="{Binding Image}" HorizontalOptions="FillAndExpand" WidthRequest="360"/>
+            <StackLayout Padding="16,20,16,20">
+                <Label FontSize="22">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="{Binding Name}" FontAttributes="Bold" FontSize="22" ForegroundColor="Navy" />
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Text="{Binding MissionStatement}"/>
+            </StackLayout>
+        </StackLayout>
+
+        <Button Image="ic_add_white.png" 
+            BackgroundColor="Green" BorderRadius="30" Opacity="0.7"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".95, .95, 60, 60" 
+            Clicked="OpenPostList" />
+     </AbsoluteLayout>
+</ContentPage>

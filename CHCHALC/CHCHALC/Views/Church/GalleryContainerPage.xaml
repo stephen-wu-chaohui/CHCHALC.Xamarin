@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cardView="clr-namespace:CardView;assembly=CardView"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CHCHALC.Views.GalleryContainerPage"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:GalleryContainerViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        
+        <Image Source="sunday.png" Aspect="AspectFill" HorizontalOptions="FillAndExpand"
+               HeightRequest="50"/>
+        
+        <ListView ItemsSource="{Binding PlayItems}"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="true"
+                  RefreshCommand="{Binding LoadPlaylistCommand}"
+                  IsPullToRefreshEnabled="true"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  CachingStrategy="RecycleElement"
+                  ItemSelected="OnPlaylistSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <cardView:CardView
+                            BackgroundColor="LightYellow"
+                            CardViewHasShadow="True">
+                            <cardView:CardView.CardViewContent>
+                                <StackLayout Padding="10" Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="{Binding Text}" d:Text="{Binding .}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                    <Label Text="{Binding Description}" d:Text="Item descripton" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
+                                </StackLayout>
+                            </cardView:CardView.CardViewContent>
+                        </cardView:CardView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <Button Margin="5" Padding="5" CornerRadius="5" FontSize="Large" BackgroundColor="LightBlue" TextColor="Black" Text="Click here to find more" Clicked="PickerClicked"/>
+        <Picker ItemsSource="{Binding Playlists}" ItemDisplayBinding="{Binding Text}" IsVisible="true" SelectedIndexChanged="PlaylistChanged" x:Name="playlistPicker"/>
+    </StackLayout>
+</ContentPage>

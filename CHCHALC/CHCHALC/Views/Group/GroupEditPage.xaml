@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CHCHALC.Views.GroupEditPage"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Clicked="SaveButtonClickedAsync" />
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <TableView Intent="Data" HasUnevenRows="true">
+            <TableRoot>
+                <TableSection Title="CLICK TO SET GROUP PICTURE">
+                    <ViewCell>
+                        <Image x:Name="titleImage" HorizontalOptions="FillAndExpand" HeightRequest="202">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                Tapped="OnImageNameTappedAsync"
+                                NumberOfTapsRequired="1" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </ViewCell>
+                    <EntryCell IsEnabled="{Binding IsEditing}" Keyboard="Text" Label="Name" Placeholder="eg.(Rock)" Text="{Binding Name, Mode=TwoWay}"/>
+                    <EntryCell IsEnabled="{Binding IsEditing}" Keyboard="Text" Label="Time" Placeholder="eg.(Wednesday 4pm-8pm)" Text="{Binding Time, Mode=TwoWay}"/>
+                    <EntryCell IsEnabled="{Binding IsEditing}" Keyboard="Text" Label="Address" Placeholder="eg.(43 Pie Street)" Text="{Binding Address, Mode=TwoWay}"/>
+                </TableSection>
+                <TableSection Title="MISSION STATEMENT">
+                    <ViewCell Height="200" >
+                        <StackLayout Padding="20">
+                            <Editor IsEnabled="{Binding IsEditing}" Text="{Binding MissionStatement, Mode=TwoWay}" HeightRequest="200"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+        
+        <Button Text="Members"/>
+    </StackLayout>
+</ContentPage>

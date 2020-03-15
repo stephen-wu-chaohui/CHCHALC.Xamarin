@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             mc:Ignorable="d"
+             x:Class="CHCHALC.Views.MemberListPage"
+             Title="{Binding Title}">
+
+    <AbsoluteLayout>
+        <ListView ItemsSource="{Binding Members}" 
+              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"
+              HasUnevenRows="true" SeparatorVisibility="None"
+              RefreshCommand="{Binding LoadCommand}"
+              IsPullToRefreshEnabled="true"
+              IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+              CachingStrategy="RecycleElement"
+              >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="20,10,10,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout VerticalOptions="CenterAndExpand">
+                                <Label Text="{Binding FormalName}"  />
+                                <Label Text="{Binding PreferName}" FontSize="10" />
+                            </StackLayout>
+                            <StackLayout VerticalOptions="CenterAndExpand"  Grid.Column="1" >
+                                <Label Text="{Binding PersonalStatement}"  />
+                            </StackLayout>
+                            <!--<Switch IsToggled="{Binding Selected}" Grid.Column="3" />-->
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <Button Image="ic_add_white.png" 
+            BackgroundColor="Blue" BorderRadius="30" Opacity="0.7"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".95, .95, 60, 60"
+            />
+
+    </AbsoluteLayout>
+</ContentPage>

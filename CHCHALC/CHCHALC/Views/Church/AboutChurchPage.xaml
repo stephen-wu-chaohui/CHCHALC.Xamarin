@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" x:Class="CHCHALC.Views.AboutChurchPage"
+             xmlns:vm="clr-namespace:CHCHALC.ViewModels"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:AboutChurchViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+        <StackLayout BackgroundColor="{StaticResource Accent}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <Image Source="church.png" Aspect="AspectFill" HorizontalOptions="FillAndExpand" HeightRequest="205"/>
+            <StackLayout Padding="16,20,16,20">
+                <Label FontSize="22" FontAttributes="Bold, Italic" TextColor="Navy" Text="Chinese Abundant Life Church"/>
+            </StackLayout>
+            <StackLayout Padding="10,10,0,0" HorizontalOptions="EndAndExpand">
+                <Label FontSize="17" TextColor="Maroon" Text="{Binding Manifesto}"/>
+            </StackLayout>
+        </StackLayout>
+        <Button Image="ic_add_white.png" 
+            BackgroundColor="Blue" BorderRadius="30" Opacity="0.7"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".95, .95, 60, 60" 
+            Clicked="Button_Clicked" />
+    </AbsoluteLayout>
+</ContentPage>
